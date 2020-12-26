@@ -22,7 +22,7 @@ public class GuestApi {
 //			guest.setPwd(pwd);
 //			
 //			EntityTransaction transaction = em.getTransaction();
-//	        transaction.begin();
+//			transaction.begin();
 //			em.persist(guest);
 //			transaction.commit();
 			
@@ -60,7 +60,7 @@ public class GuestApi {
 			guest.setPwd(pwd);
 			
 			EntityTransaction transaction = em.getTransaction();
-	        transaction.begin();
+			transaction.begin();
 			em.persist(guest);
 			transaction.commit();
 			
