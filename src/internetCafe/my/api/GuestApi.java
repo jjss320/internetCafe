@@ -71,4 +71,18 @@ public class GuestApi {
 		}
 		return 0;
 	}
+	
+	public String read(String id) {
+		try {
+			em.createNativeQuery("select * from Guest where id = ?)", Guest.class)
+			.setParameter(1, id)
+			.executeUpdate();
+			
+		} catch(Exception e) {
+			return "error";
+		} finally {
+			em.close();
+		}
+		return id;
+	}
 }
