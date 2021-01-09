@@ -1,6 +1,7 @@
 package internetCafe.my.cli;
 
 import internetCafe.my.api.GuestApi;
+import internetCafe.my.model.Guest;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -14,7 +15,7 @@ public class CommonLogin implements Runnable {
 	@Option(names = { "-i", "--id" }, description = "The ID", required = true)
 	private String id;
 
-	@Option(names = { "-p", "--password" }, description = "The student Password", required = true)
+	@Option(names = { "-p", "--password" }, description = "The guest Password", required = true)
 	private String password;
 
 	@ParentCommand
@@ -24,8 +25,8 @@ public class CommonLogin implements Runnable {
 		switch (role) {
 		case "guest":
 			GuestApi api = new GuestApi();
-			boolean result = api.login(id, password);
-			if (result) {
+			Guest guest = api.login(id, password);
+			if (guest != null) {
 				parent.out.println("login success");
 			} else {
 				parent.out.println("login fail");
