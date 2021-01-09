@@ -12,16 +12,16 @@ public class CommonUpdate implements Runnable {
 	@Parameters(paramLabel = "Role", description = "The role")
 	private String role;
 
-	@Option(names = { "-i", "--id" }, description = "The student ID")
+	@Option(names = { "-i", "--id" }, description = "The guest ID")
 	private String id;
 
-	@Option(names = { "-n", "--name" }, description = "The student Name")
+	@Option(names = { "-n", "--name" }, description = "The guest Name")
 	private String name;
 
-	@Option(names = { "-p", "--password" }, description = "The student Password")
+	@Option(names = { "-p", "--password" }, description = "The guest Password")
 	private String password;
 
-	@Option(names = { "-a", "--address" }, description = "The student Address")
+	@Option(names = { "-a", "--address" }, description = "The guest Address")
 	private String address;
 
 	@ParentCommand
