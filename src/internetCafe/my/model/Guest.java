@@ -27,6 +27,9 @@ public class Guest {
 	@Column
 	private String phoneNumber; // 전화번호
 	
+	@Column
+	private String address; // 주소
+	
 	public String getId() {
 		return id;
 	}
@@ -62,6 +65,12 @@ public class Guest {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	public String toString() {
