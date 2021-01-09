@@ -15,48 +15,11 @@ public class GuestApi {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	private EntityManager em = factory.createEntityManager();
 	
-	public int signUp(String id, String pwd) {
-		try {
-//			Guest guest = new Guest();
-//			guest.setId(id);
-//			guest.setPwd(pwd);
-//			
-//			EntityTransaction transaction = em.getTransaction();
-//			transaction.begin();
-//			em.persist(guest);
-//			transaction.commit();
-			
-			em.createNativeQuery("insert into Guest(id, pwd) values(?,?)", Guest.class)
-			.setParameter(1, id)
-			.setParameter(2, pwd)
-			.executeUpdate();
-			
-		} catch(Exception e) {
-			return -1;
-		} finally {
-			em.close();
-		}
-		return 0;
-	}
-	
-	public int login(String id, String pwd) {
-		try {
-			em.createNativeQuery("select Guest(id, pwd) from Guest where id = ? and pwd = ?)", Guest.class)
-			.setParameter(1, id)
-			.setParameter(2, pwd)
-			.executeUpdate();
-			
-		} catch(Exception e) {
-			return -1;
-		} finally {
-			em.close();
-		}
-		return 0;
-	}
-	
-	public int pwdUpdate(String pwd) {
+	public boolean signUp(String id, String name, String pwd) {
 		try {
 			Guest guest = new Guest();
+			guest.setId(id);
+			guest.setName(name);
 			guest.setPwd(pwd);
 			
 			EntityTransaction transaction = em.getTransaction();
@@ -64,25 +27,51 @@ public class GuestApi {
 			em.persist(guest);
 			transaction.commit();
 			
-		} catch (Exception e) {
-			return -1;
+		} catch(Exception e) {
+			return false;
 		} finally {
 			em.close();
 		}
-		return 0;
+		return true;
 	}
 	
-	public String read(String id) {
+	public Guest login(String id, String pwd) {
+		Query query = em.createQuery("select g from Guest g where id = " + id + " and pwd = " + pwd);
+		List<Guest> resultList = query.getResultList();
+
+		if (resultList.size() == 1) {
+			return resultList.get(0);
+		}
+		else
+			return null;
+	}
+	
+	public boolean update(String id, String name, String pwd, String address) {
 		try {
-			em.createNativeQuery("select * from Guest where id = ?)", Guest.class)
-			.setParameter(1, id)
-			.executeUpdate();
+			Guest guest =  em.find(Guest.class, id);
 			
-		} catch(Exception e) {
-			return "error";
+			EntityTransaction transaction = em.getTransaction();
+			transaction.begin();
+			guest.setName(name);
+			guest.setPwd(pwd);
+			guest.setAddress(address);
+			transaction.commit();
+			
+		} catch (Exception e) {
+			return false;
 		} finally {
 			em.close();
 		}
-		return id;
+		return true;
+	}
+	
+	public Guest read(String id) {
+		Query query = em.createQuery("select g from Guest g where id = " + id);
+		List<Guest> resultList = query.getResultList();
+			
+		if (resultList.size() == 1)
+			return resultList.get(0);
+		else
+			return null;
 	}
 }
