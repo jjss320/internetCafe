@@ -16,7 +16,7 @@ public class CommonRead implements Runnable {
 	@Option(names = { "-i", "--id" }, description = "The ID")
 	private String id;
 
-	@Option(names = { "-al", "--all" }, description = "The student Password")
+	@Option(names = { "-al", "--all" }, description = "The guest Password")
 	private Boolean isAll;
 
 	@ParentCommand
