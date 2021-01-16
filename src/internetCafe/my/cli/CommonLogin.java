@@ -27,6 +27,7 @@ public class CommonLogin implements Runnable {
 			GuestApi api = new GuestApi();
 			Guest guest = api.login(id, password);
 			if (guest != null) {
+				CliAuth.getInstance().login(guest);
 				parent.out.println("login success");
 			} else {
 				parent.out.println("login fail");
