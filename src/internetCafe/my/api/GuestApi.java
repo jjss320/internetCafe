@@ -7,13 +7,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import internetCafe.my.model.Guest;
 
 public class GuestApi {
 	private static final String PERSISTENCE_UNIT_NAME = "h2";
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	private EntityManager em = factory.createEntityManager();
+	private static EntityManager em = factory.createEntityManager();
 	
 	public boolean signUp(String id, String name, String pwd) {
 		try {
@@ -29,14 +33,21 @@ public class GuestApi {
 			
 		} catch(Exception e) {
 			return false;
-		} finally {
-			em.close();
-		}
+		} 
 		return true;
 	}
 	
 	public Guest login(String id, String pwd) {
-		Query query = em.createQuery("select g from Guest g where id = " + id + " and pwd = " + pwd);
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		
+		CriteriaQuery<Guest> cQuery = criteriaBuilder.createQuery(Guest.class);
+		Root<Guest> from = cQuery.from(Guest.class);
+		Predicate where1 = criteriaBuilder.equal(from.get("id"), id);
+		Predicate where2 = criteriaBuilder.equal(from.get("pwd"), pwd);
+		Predicate whereFinal = criteriaBuilder.and(where1, where2);
+		cQuery.where(whereFinal);
+		
+		Query query = em.createQuery(cQuery);
 		List<Guest> resultList = query.getResultList();
 
 		if (resultList.size() == 1) {
@@ -59,14 +70,19 @@ public class GuestApi {
 			
 		} catch (Exception e) {
 			return false;
-		} finally {
-			em.close();
-		}
+		} 
 		return true;
 	}
 	
 	public Guest read(String id) {
-		Query query = em.createQuery("select g from Guest g where id = " + id);
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		
+		CriteriaQuery<Guest> cQuery = criteriaBuilder.createQuery(Guest.class);
+		Root<Guest> from = cQuery.from(Guest.class);
+		Predicate where = criteriaBuilder.equal(from.get("id"), id);
+		cQuery.where(where);
+		
+		Query query = em.createQuery(cQuery);
 		List<Guest> resultList = query.getResultList();
 			
 		if (resultList.size() == 1)
