@@ -74,6 +74,10 @@ public class GuestApi {
 		return true;
 	}
 	
+	public boolean logout(){
+		return true;
+	}
+	
 	public Guest read(String id) {
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		
