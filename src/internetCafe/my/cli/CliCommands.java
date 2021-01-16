@@ -16,7 +16,7 @@ import picocli.CommandLine.Command;
 		footer = { "", "Press Ctl-D to exit." }, 
 		subcommands = { PrintInfo.class, ClearScreen.class, CommandLine.HelpCommand.class,
 						CommonLogin.class, CommonRead.class, CommonRegister.class,
-						CommonUpdate.class })
+						CommonUpdate.class, CommonLogout.class })
 public class CliCommands implements Runnable {
 	LineReaderImpl reader;
 	PrintWriter out;
