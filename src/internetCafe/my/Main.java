@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import internetCafe.my.model.Guest;
+import internetCafe.my.api.GuestAPI;
 
 public class Main {
 	private static final String PERSISTENCE_UNIT_NAME = "h2";//h2 -> 휘발성 DB 메모리에 올리는 것, 디스크 등 저장장치에 저장 시 MySQL 등 사용
