@@ -13,7 +13,7 @@ import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.AttributedStringBuilder;
 import org.jline.utils.AttributedStyle;
 
-import internetCafe.my.cli.CliAuth;
+import internetCafe.my.api.UserAuth;
 import internetCafe.my.cli.CliCommands;
 import internetCafe.my.cli.DescriptionGenerator;
 
@@ -31,7 +31,7 @@ public class CLISample {
 	private static CommandLine cmd;
 	private static CliCommands commands;
 	private static DescriptionGenerator descriptionGenerator;
-	private static CliAuth auth = CliAuth.getInstance();
+	private static UserAuth auth = UserAuth.getInstance();
 
 	public static void main(String[] args) {
 		AnsiConsole.systemInstall();
