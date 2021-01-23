@@ -1,17 +1,27 @@
-package internetCafe.my.cli;
+package internetCafe.my.api;
 
 import internetCafe.my.model.Guest;
+import internetCafe.my.model.Head;
 
-public class CliAuth {
-	private static CliAuth instance;
+public class UserAuth {
+	private static UserAuth instance;
 	private Guest loginUser;
+	private Head loginHead;
 	
 	// Singleton Pattern
-	public static CliAuth getInstance() {
+	public static UserAuth getInstance() {
 		if(instance == null) {
-			instance = new CliAuth();
+			instance = new UserAuth();
 		}
 		return instance;
+	}
+	
+	public void login(Head head) {
+		this.loginHead = head;
+	}
+	
+	public Head getHead() {
+		return loginHead;
 	}
 	
 	public void login(Guest guest) {
