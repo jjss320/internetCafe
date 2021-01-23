@@ -13,7 +13,7 @@ public class Guest {
 	private String id; // id
 	
 	@Column
-	private String pwd; // 비밀번호
+	private String password; // 비밀번호
 	
 	@Column
 	private boolean member; // 회원 / 비회원
@@ -36,11 +36,11 @@ public class Guest {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPwd() {
-		return pwd;
+	public String getPassword() {
+		return password;
 	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public boolean member() {
 		return member;
