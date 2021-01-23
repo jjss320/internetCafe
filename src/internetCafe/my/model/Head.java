@@ -13,13 +13,16 @@ public class Head {
 	private String id; // id
 	
 	@Column
+	private String password; // password
+	
+	@Column
+	private String name; // 이름
+	
+	@Column
+	private String address; // 주소
+	
+	@Column
 	private int pcNum; // pc대수
-	
-	@Column
-	private String province; // 도
-	
-	@Column
-	private String city; // 시
 	
 	public String getId() {
 		return id;
@@ -27,22 +30,28 @@ public class Head {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public int getPcNum() {
 		return pcNum;
 	}
 	public void setPcNum(int pcNum) {
 		this.pcNum = pcNum;
-	}
-	public String province() {
-		return province;
-	}
-	public void setProvince(String province) {
-		this.province = province;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
 	}
 }
