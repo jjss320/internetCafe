@@ -15,32 +15,36 @@ public class UserAuth {
 		}
 		return instance;
 	}
-	
+	// Head
 	public void login(Head head) {
 		this.loginHead = head;
 	}
-	
+	// Head
 	public Head getHead() {
 		return loginHead;
 	}
-	
+	// Guest
 	public void login(Guest guest) {
 		this.loginUser = guest;
 	}
-	
-	public boolean isLogin() {
-		return (loginUser != null) ? true : false;
-	}
-	
-	public String getLoginName() {
-		return loginUser.getName();
-	}
-	
+	// Guest
 	public Guest getUser() {
 		return loginUser;
 	}
-	
+	// Head, Guest
+	public boolean isLogin() {
+		return (loginUser != null | loginHead != null) ? true : false;
+	}
+	// Head, Guest
+	public String getLoginName() {
+		return loginUser != null ? loginUser.getName() : loginHead.getName();
+	}
+	// Head, Guest
 	public void logout() {
-		loginUser = null;
+		if(loginUser != null) {
+			loginUser = null;
+		} else {
+			loginHead = null;
+		}
 	}
 }
