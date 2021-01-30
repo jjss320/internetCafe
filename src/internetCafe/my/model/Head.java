@@ -54,4 +54,8 @@ public class Head {
 	public void setPcNum(int pcNum) {
 		this.pcNum = pcNum;
 	}
+	
+	public String toString() {
+		return "id: " + id + ",name: " + name + ", Hello!";
+	}
 }
