@@ -19,7 +19,7 @@ public class HeadAPI {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	private static EntityManager em = factory.createEntityManager();
 	
-	public boolean signUp(String id, String password, String name) {
+	public boolean signUp(String id, String name, String password) {
 		try {
 			Head head = new Head();
 			head.setId(id);
