@@ -19,6 +19,7 @@ public class HeadAPI {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	private static EntityManager em = factory.createEntityManager();
 	
+	// register
 	public boolean signUp(String id, String name, String password) {
 		try {
 			Head head = new Head();
@@ -57,7 +58,7 @@ public class HeadAPI {
 			return null;
 	}
 	
-	public boolean update(String id, String name, String password, String address) {
+	public boolean update(String id, String name, String password, String address, int pcNum) {
 		try {
 			Head head =  em.find(Head.class, id);
 			
@@ -66,6 +67,7 @@ public class HeadAPI {
 			head.setName(name);
 			head.setPassword(password);
 			head.setAddress(address);
+			head.setPcNum(pcNum);
 			transaction.commit();
 			
 		} catch (Exception e) {
@@ -78,12 +80,12 @@ public class HeadAPI {
 		return true;
 	}
 	
-	public Head read(String id) {
+	public Head read() {
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		
 		CriteriaQuery<Head> cQuery = criteriaBuilder.createQuery(Head.class);
 		Root<Head> from = cQuery.from(Head.class);
-		Predicate where = criteriaBuilder.equal(from.get("id"), id);
+		Predicate where = criteriaBuilder.equal(from.get("id"), UserAuth.getInstance().getHead().getId());
 		cQuery.where(where);
 		
 		Query query = em.createQuery(cQuery);
