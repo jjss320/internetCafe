@@ -11,41 +11,36 @@ import picocli.CommandLine.ParentCommand;
 
 @Command(name = "logout")
 public class CommonLogout implements Runnable {
-	@Parameters(paramLabel = "Role", description = "The role")
-	private String role;
-
 	@ParentCommand
 	CliCommands parent;
 
 	public void run() {
-		switch (role) {
-		case "guest":{
-			GuestAPI api = new GuestAPI();
-			boolean result = api.logout();
-			if (result != false) {
-				UserAuth.getInstance().logout();
-				parent.out.println("logout success");
-			} else {
-				parent.out.println("logout fail");
+		if(UserAuth.getInstance().isLogin() == true) {
+			if(UserAuth.getInstance().getGuest() != null) {
+				GuestAPI api = new GuestAPI();
+				boolean result = api.logout();
+				if (result != false) {
+					UserAuth.getInstance().logout();
+					parent.out.println("logout success");
+				} else {
+					parent.out.println("logout fail");
+				}
 			}
-		}
-			break;
-		case "NonGuest":
-			break;
-		case "head":{
-			HeadAPI api = new HeadAPI();
-			boolean result = api.logout();
-			if (result != false) {
-				UserAuth.getInstance().logout();
-				parent.out.println("logout success");
-			} else {
-				parent.out.println("logout fail");
+			
+			else if(UserAuth.getInstance().getHead() != null) {
+				HeadAPI api = new HeadAPI();
+				boolean result = api.logout();
+				if (result != false) {
+					UserAuth.getInstance().logout();
+					parent.out.println("logout success");
+				} else {
+					parent.out.println("logout fail");
+				}
 			}
-		}
-			break;
-		default:
-			parent.out.printf("'%s' is not support\n", role);
-			break;
+			
+			else {
+				parent.out.println("Unknown User");
+			}
 		}
 	}
 }
