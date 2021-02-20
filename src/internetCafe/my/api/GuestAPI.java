@@ -19,6 +19,7 @@ public class GuestAPI {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	private static EntityManager em = factory.createEntityManager();
 	
+	//register
 	public boolean signUp(String id, String name, String password) {
 		try {
 			Guest guest = new Guest();
@@ -57,7 +58,7 @@ public class GuestAPI {
 			return null;
 	}
 	
-	public boolean update(String id, String name, String password, String address) {
+	public boolean update(String id, String name, String password, int age, String phoneNumber, String address) {
 		try {
 			Guest guest =  em.find(Guest.class, id);
 			
@@ -65,6 +66,8 @@ public class GuestAPI {
 			transaction.begin();
 			guest.setName(name);
 			guest.setPassword(password);
+			guest.setAge(age);
+			guest.setPhoneNumber(phoneNumber);
 			guest.setAddress(address);
 			transaction.commit();
 			
@@ -78,14 +81,14 @@ public class GuestAPI {
 		return true;
 	}
 	
-	public Guest read(String id) {
+	public Guest read() {
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		
 		CriteriaQuery<Guest> cQuery = criteriaBuilder.createQuery(Guest.class);
 		Root<Guest> from = cQuery.from(Guest.class);
-		Predicate where = criteriaBuilder.equal(from.get("id"), id);
+		Predicate where = criteriaBuilder.equal(from.get("id"), UserAuth.getInstance().getGuest().getId());
 		cQuery.where(where);
-		
+
 		Query query = em.createQuery(cQuery);
 		List<Guest> resultList = query.getResultList();
 			
