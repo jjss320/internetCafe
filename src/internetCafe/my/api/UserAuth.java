@@ -5,7 +5,7 @@ import internetCafe.my.model.Head;
 
 public class UserAuth {
 	private static UserAuth instance;
-	private Guest loginUser;
+	private Guest loginGuest;
 	private Head loginHead;
 	
 	// Singleton Pattern
@@ -25,24 +25,30 @@ public class UserAuth {
 	}
 	// Guest
 	public void login(Guest guest) {
-		this.loginUser = guest;
+		this.loginGuest = guest;
 	}
 	// Guest
-	public Guest getUser() {
-		return loginUser;
+	public Guest getGuest() {
+		return loginGuest;
 	}
+	
+//	// Head, Guest
+//	public getUser() {
+//		return loginUser;
+//	}
+	
 	// Head, Guest
 	public boolean isLogin() {
-		return (loginUser != null | loginHead != null) ? true : false;
+		return (loginGuest != null | loginHead != null) ? true : false;
 	}
 	// Head, Guest
 	public String getLoginName() {
-		return loginUser != null ? loginUser.getName() : loginHead.getName();
+		return loginGuest != null ? loginGuest.getName() : loginHead.getName();
 	}
 	// Head, Guest
 	public void logout() {
-		if(loginUser != null) {
-			loginUser = null;
+		if(loginGuest != null) {
+			loginGuest = null;
 		} else {
 			loginHead = null;
 		}
