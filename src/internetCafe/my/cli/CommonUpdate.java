@@ -2,6 +2,7 @@ package internetCafe.my.cli;
 
 import internetCafe.my.api.GuestAPI;
 import internetCafe.my.api.HeadAPI;
+import internetCafe.my.api.UserAuth;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -9,10 +10,7 @@ import picocli.CommandLine.ParentCommand;
 
 @Command(name = "update")
 public class CommonUpdate implements Runnable {
-	@Parameters(paramLabel = "Role", description = "The role")
-	private String role;
-
-	@Option(names = { "-i", "--id" }, description = "The ID")
+	@Option(names = { "-i", "--id" }, description = "The ID is Primary")
 	private String id;
 
 	@Option(names = { "-n", "--name" }, description = "The Name")
@@ -21,41 +19,45 @@ public class CommonUpdate implements Runnable {
 	@Option(names = { "-p", "--password" }, description = "The Password")
 	private String password;
 
-	@Option(names = { "-a", "--address" }, description = "The Address")
+	@Option(names = { "-a", "--age" }, description = "The Age")
+	private int age;
+	
+	@Option(names = { "-pn", "--phoneNumber" }, description = "The PhoneNumber")
+	private String phoneNumber;
+	
+	@Option(names = { "-ad", "--address" }, description = "The Address")
 	private String address;
+	
+	@Option(names = { "-pc", "--pcNum" }, description = "The PCNumber")
+	private int pcNum;
 
 	@ParentCommand
 	CliCommands parent;
 
 	public void run() {
-		switch (role) {
-		case "guest":{
-			if (id == "")
-				break;
-			GuestAPI api = new GuestAPI();
-			boolean result = api.update(id, name, password, address);
-			if (result) {
-				parent.out.println("update success");
-			} else {
-				parent.out.println("update fail");
+		if(UserAuth.getInstance().isLogin() == true) {
+			if(UserAuth.getInstance().getGuest() != null) {
+				GuestAPI api = new GuestAPI();
+				boolean result = api.update(id, name, password, age, phoneNumber, address);
+				if (result) {
+					parent.out.println("update success");
+				} else {
+					parent.out.println("update fail");
+				}
 			}
-		}
-			break;
-		case "head":{
-			if (id == "")
-				break;
-			HeadAPI api = new HeadAPI();
-			boolean result = api.update(id, name, password, address);
-			if (result) {
-				parent.out.println("update success");
-			} else {
-				parent.out.println("update fail");
+			
+			else if(UserAuth.getInstance().getHead() != null) {
+				HeadAPI api = new HeadAPI();
+				boolean result = api.update(id, name, password, address, pcNum);
+				if (result) {
+					parent.out.println("update success");
+				} else {
+					parent.out.println("update fail");
+				}
 			}
-		}
-			break;
-		default:
-			parent.out.printf("'%s' is not support\n", role);
-			break;
+			else {
+				parent.out.println("Unknown User");
+			}
 		}
 	}
 }
